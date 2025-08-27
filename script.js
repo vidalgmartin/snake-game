@@ -14,18 +14,54 @@ const drawSnakeCell = (snakeCell) => {
 }
 
 const renderSnake = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     snake.forEach(drawSnakeCell)
 }
 
 renderSnake()
 
-const moveSnake = () => {
-    snake[0].x -= 20
-    snake[1].x -= 20
-    snake[2].x -= 20
-    snake[3].x -= 20
+let direction = "LEFT"
+
+const snakeMovement = () => {
+    const snakeHead = {x: snake[0].x, y: snake[0].y}
+    
+    if (direction === "UP") {
+        snakeHead.y -= 20
+    }
+    if (direction === "RIGHT") {
+        snakeHead.x += 20
+    }
+    if (direction === "DOWN") {
+        snakeHead.y += 20
+    }
+    if (direction === "LEFT") {
+        snakeHead.x -= 20
+    }
+
+    snake.unshift(snakeHead)
+    snake.pop()
     
     renderSnake()
 }
 
-canvas.addEventListener("click", moveSnake)
+let gameStarted = false
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowUp") {
+        direction = "UP"
+    }
+    if (event.key === "ArrowRight") {
+        direction = "RIGHT"
+    }
+    if (event.key === "ArrowDown") {
+        direction = "DOWN"
+    }
+    if (event.key === "ArrowLeft") {
+        direction = "LEFT"
+    }
+
+    if (!gameStarted) {
+        gameStarted = true
+        setInterval(snakeMovement, 150)
+    }
+})
