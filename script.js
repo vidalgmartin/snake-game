@@ -13,9 +13,22 @@ const drawSnakeCell = (snakeCell) => {
     ctx.fillRect(snakeCell.x, snakeCell.y, 20, 20)
 }
 
+const randomPosition = () => {
+    let randomNum = Math.floor(Math.random() * 20) * 20
+    return randomNum
+}
+
+let apple = {x: randomPosition(), y: randomPosition()}
+
+const drawApple = () => {
+    ctx.fillStyle = "red"
+    ctx.fillRect(apple.x, apple.y, 20, 20)
+}
+
 const renderSnake = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     snake.forEach(drawSnakeCell)
+    drawApple()
 }
 
 renderSnake()
@@ -25,7 +38,7 @@ let direction = "LEFT"
 const snakeMovement = () => {
     const snakeHead = {x: snake[0].x, y: snake[0].y}
     
-    if (snakeHead.x < 0 || snakeHead.x > 400 || snakeHead.y < 0 || snakeHead.y > 400) {
+    if (snakeHead.x < 0 || snakeHead.x > 380 || snakeHead.y < 0 || snakeHead.y > 380) {
         return
     }
     
