@@ -25,6 +25,10 @@ let direction = "LEFT"
 const snakeMovement = () => {
     const snakeHead = {x: snake[0].x, y: snake[0].y}
     
+    if (snakeHead.x < 0 || snakeHead.x > 400 || snakeHead.y < 0 || snakeHead.y > 400) {
+        return
+    }
+    
     if (direction === "UP") {
         snakeHead.y -= 20
     }
@@ -47,16 +51,16 @@ const snakeMovement = () => {
 let gameStarted = false
 
 document.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowUp") {
+    if (event.key === "ArrowUp" && direction !== "DOWN") {
         direction = "UP"
     }
-    if (event.key === "ArrowRight") {
+    if (event.key === "ArrowRight" && direction !== "LEFT") {
         direction = "RIGHT"
     }
-    if (event.key === "ArrowDown") {
+    if (event.key === "ArrowDown" && direction !== "UP") {
         direction = "DOWN"
     }
-    if (event.key === "ArrowLeft") {
+    if (event.key === "ArrowLeft" && direction !== "RIGHT") {
         direction = "LEFT"
     }
 
